@@ -10,7 +10,7 @@ public class CluesDTO{
         return this.clues; }
     public void setClues(List<Clue> clues) {
         this.clues = clues; }
-    List<Clue> clues;
+    private List<Clue> clues;
 
     @Override
     public String toString() {
@@ -26,19 +26,19 @@ class Category{
         return this.id; }
     public void setId(int id) {
         this.id = id; }
-    int id;
+    private int id;
     @JsonProperty("title")
     public String getTitle() {
         return this.title; }
     public void setTitle(String title) {
         this.title = title; }
-    String title;
+    private String title;
     @JsonProperty("canon")
     public boolean getCanon() {
         return this.canon; }
     public void setCanon(boolean canon) {
         this.canon = canon; }
-    boolean canon;
+    private boolean canon;
 
     @Override
     public String toString() {
@@ -51,66 +51,69 @@ class Category{
 }
 
 class Clue{
+    private int id;
+    private String answer;
+    private String question;
+    private int value;
+    private int categoryId;
+    private int gameId;
+    private Game game;
+    private int invalidCount;
+    private Category category;
+    private boolean canon;
     @JsonProperty("id")
     public int getId() {
         return this.id; }
     public void setId(int id) {
         this.id = id; }
-    int id;
     @JsonProperty("answer")
     public String getAnswer() {
         return this.answer; }
     public void setAnswer(String answer) {
         this.answer = answer; }
-    String answer;
     @JsonProperty("question")
     public String getQuestion() {
         return this.question; }
     public void setQuestion(String question) {
         this.question = question; }
-    String question;
     @JsonProperty("value")
     public int getValue() {
         return this.value; }
     public void setValue(int value) {
         this.value = value; }
-    int value;
     @JsonProperty("categoryId")
     public int getCategoryId() {
         return this.categoryId; }
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId; }
-    int categoryId;
     @JsonProperty("gameId")
     public int getGameId() {
         return this.gameId; }
     public void setGameId(int gameId) {
         this.gameId = gameId; }
-    int gameId;
+
     @JsonProperty("invalidCount")
     public int getInvalidCount() {
         return this.invalidCount; }
     public void setInvalidCount(int invalidCount) {
         this.invalidCount = invalidCount; }
-    int invalidCount;
     @JsonProperty("category")
     public Category getCategory() {
         return this.category; }
     public void setCategory(Category category) {
         this.category = category; }
-    Category category;
     @JsonProperty("game")
     public Game getGame() {
         return this.game; }
     public void setGame(Game game) {
         this.game = game; }
-    Game game;
+
     @JsonProperty("canon")
     public boolean getCanon() {
         return this.canon; }
     public void setCanon(boolean canon) {
         this.canon = canon; }
-    boolean canon;
+
 
     @Override
     public String toString() {
@@ -134,13 +137,13 @@ class Game{
         return this.aired; }
     public void setAired(String aired) {
         this.aired = aired; }
-    String aired;
+    private String aired;
     @JsonProperty("canon")
     public boolean getCanon() {
         return this.canon; }
     public void setCanon(boolean canon) {
         this.canon = canon; }
-    boolean canon;
+    private boolean canon;
 
     @Override
     public String toString() {

@@ -26,7 +26,7 @@ public class Main {
        - The rest is up to you. Good luck and happy coding!
 
      */
-    static final String URL = "https://jservice.kenzie.academy/api/clues";
+    public static final String URL = "https://jservice.kenzie.academy/api/clues";
 
     public static void main(String[] args) throws IOException {
         //Write main execution code here
@@ -50,10 +50,10 @@ public class Main {
         System.out.println("First Question");
 
             //Main execution of program using loops and scanners
-            for (Clue clue : mapper(URL).clues) {
-                while (clue.id == randomId) {
-                    System.out.println("Category: " + clue.category.getTitle() + "\n"
-                            + "Question: " + clue.question + "\n");
+            for (Clue clue : mapper(URL).getClues()) {
+                while (clue.getId() == randomId) {
+                    System.out.println("Category: " + clue.getCategory().getTitle() + "\n"
+                            + "Question: " + clue.getQuestion()+ "\n");
                     System.out.println("Type your answer");
                     String answer = scanner.nextLine();
                     counter++;
