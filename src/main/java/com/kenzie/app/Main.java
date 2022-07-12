@@ -2,7 +2,19 @@ package com.kenzie.app;
 
 // import necessary libraries
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
+import java.util.Random;
+import java.util.Scanner;
+import static com.kenzie.app.CustomHttpClient.sendGET;
+
+/* TODO
+   Create an event loop so the user can play multiple times
+   Implement a two players mode
+   Create a time limit to answer questions
+   */
 public class Main {
     /* Java Fundamentals Capstone project:
        - Define as many variables, properties, and methods as you decide are necessary to
@@ -14,10 +26,67 @@ public class Main {
        - The rest is up to you. Good luck and happy coding!
 
      */
+    static final String URL = "https://jservice.kenzie.academy/api/clues";
 
-
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws IOException {
         //Write main execution code here
+
+        //Declarations of variables to track points and counter for the for loop
+        int points = 0;
+        int counter = 0;
+        //Declaration of random and scanner
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
+        int randomId = random.nextInt(101);
+
+
+        //Pre game info explaining the game system
+        System.out.println("Hello! Welcome to the \"Restless Neuron Game!\"" + "\n");
+        System.out.println("The game consists in answering as many questions correctly.");
+        System.out.println("For every question that is correct you get a point, for a total of 10 questions." + "\n" +
+                "Lets see what you got. Ready?");
+        System.out.println("Type Y to continue");
+        scanner.nextLine();
+        System.out.println("First Question");
+
+            //Main execution of program using loops and scanners
+            for (Clue clue : mapper(URL).clues) {
+                while (clue.id == randomId) {
+                    System.out.println("Category: " + clue.category.getTitle() + "\n"
+                            + "Question: " + clue.question + "\n");
+                    System.out.println("Type your answer");
+                    String answer = scanner.nextLine();
+                    counter++;
+
+                    if (answer.equalsIgnoreCase(clue.getAnswer())) {
+                        System.out.println("Correct! You get a point!");
+                        points++;
+                        System.out.println("Points: " + points + "\n");
+                    } else {
+                        System.out.println("Wrong answer. The correct answer is: " + clue.getAnswer() + "\n");
+                        System.out.println("Points: " + points);
+                    }
+                    randomId++;
+                }
+                if (counter == 10) {
+                    break;
+                }
+            }
+            if (points > 7) {
+                System.out.println("You got a total of: " + points + " points");
+                System.out.println("Good Job Einstein!");
+            } else {
+                System.out.println("You got a total of: " + points + " points");
+                System.out.println("Better luck next time :(");
+            }
+
     }
+
+        public static CluesDTO mapper(String URL) throws JsonProcessingException {
+            String jsonString = sendGET(URL);
+            ObjectMapper om = new ObjectMapper();
+            return om.readValue(jsonString, CluesDTO.class);
+        }
 }
+
 
