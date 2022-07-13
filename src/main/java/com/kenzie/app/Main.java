@@ -42,12 +42,12 @@ public class Main {
             while (eventLoopBreak.equalsIgnoreCase("Y")) {
 
                 //Pre game info explaining the game system
-            System.out.println("""
-                    Hello! Welcome to the "Restless Neuron Game
-                    The game consists in answering as many questions correctly.
-                    For every question that is correct you get a point, for a total of 10 questions.
-                    Lets see what you got. Ready?
-                    """);
+            System.out.println(
+                    "Hello! Welcome to the \"Restless Neuron Game\"" + "\n" +
+                    "The game consists in answering as many questions correctly." + "\n" +
+                    "For every question that is correct you get a point, for a total of 10 questions." + "\n" +
+                    "Lets see what you got. Ready?" + "\n"
+                    );
             System.out.println("Press Any key to continue");
             scanner.nextLine();
             System.out.println("First Question:" + "\n");
@@ -88,30 +88,29 @@ public class Main {
                     }
                 }
                 //Shows total points and gives a message
-                if (points > 7) {
-                    System.out.println("You got a total of: " + points + " points");
-                    System.out.println("Good Job Einstein!");
-                } else {
-                    System.out.println("You got a total of: " + points + " points");
-                    System.out.println("Better luck next time :("+ "\n");
+                    if (points > 7) {
+                    System.out.println("You got a total of: " + points + " points" + "\n" +
+                            "Good Job Einstein!");
+                    } else {
+                    System.out.println("You got a total of: " + points + " points" + "\n" +
+                            "Better luck next time :("+ "\n");
                 }
                 //Ask a user to try again and finish or repeats the program
-                System.out.println("""
-                        Do you wish to try again?
-                        Press Y to continue.
-                        Press Any key to end program.
-                        """);
-                eventLoopBreak = scanner.nextLine();
+                    System.out.println(" Do you wish to try again?" + "\n" +
+                        "Press Y to continue." + "\n" +
+                        "Press Any key to end program." + "\n"
+                        );
+                    eventLoopBreak = scanner.nextLine();
 
-                if(!eventLoopBreak.equalsIgnoreCase("Y") || eventLoopBreak.isBlank()){
-                    break;
-                } else if (eventLoopBreak.equalsIgnoreCase("Y")) {
+                    if(!eventLoopBreak.equalsIgnoreCase("Y") || eventLoopBreak.isBlank()){
+                        break;
+                    } else if (eventLoopBreak.equalsIgnoreCase("Y")) {
                     counter = 0;
+                    }
                 }
-            }
-        }catch (IOException e){
+            }catch (IOException e){
             e.printStackTrace();
-        }
+         }
     }
 
         public static CluesDTO mapper(String URL) throws JsonProcessingException {
