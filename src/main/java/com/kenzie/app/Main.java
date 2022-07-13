@@ -44,7 +44,7 @@ public class Main {
 
                 //Pre game info explaining the game system
             System.out.println("""
-                    Hello! Welcome to the "Restless Neuron Game!"
+                    Hello! Welcome to the "Restless Neuron Game!
                     The game consists in answering as many questions correctly.
                     For every question that is correct you get a point, for a total of 10 questions.
                     Lets see what you got. Ready?
