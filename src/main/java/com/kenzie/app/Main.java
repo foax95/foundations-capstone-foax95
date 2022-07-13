@@ -11,7 +11,6 @@ import java.util.Scanner;
 import static com.kenzie.app.CustomHttpClient.sendGET;
 
 /* TODO
-   Create an event loop so the user can play multiple times
    Implement a two players mode
    Create a time limit to answer questions
    */
@@ -40,62 +39,80 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             int randomId = random.nextInt(101);
 
+            String eventLoopBreak = "Y";
+            while (eventLoopBreak.equalsIgnoreCase("Y")) {
 
-            //Pre game info explaining the game system
-            System.out.println("Hello! Welcome to the \"Restless Neuron Game!\"" + "\n");
-            System.out.println("The game consists in answering as many questions correctly.");
-            System.out.println("For every question that is correct you get a point, for a total of 10 questions." + "\n" +
-                    "Lets see what you got. Ready?");
-            System.out.println("Type Y to continue");
+                //Pre game info explaining the game system
+            System.out.println("""
+                    Hello! Welcome to the "Restless Neuron Game!"
+                    The game consists in answering as many questions correctly.
+                    For every question that is correct you get a point, for a total of 10 questions.
+                    Lets see what you got. Ready?
+                    """);
+            System.out.println("Press anything to continue");
             scanner.nextLine();
-            System.out.println("First Question");
+            System.out.println("First Question:" + "\n");
 
             //Main execution of program using loops and scanners
-            for (Clue clue : mapper(URL).getClues()) {
-                while (clue.getId() == randomId) {
-                    System.out.println("Category: " + clue.getCategory().getTitle() + "\n"
-                            + "Question: " + clue.getQuestion() + "\n");
-                    System.out.println("Type your answer");
-                    String answer = scanner.nextLine();
-                    counter++;
+                for (Clue clue : mapper(URL).getClues()) {
+                    while (clue.getId() == randomId) {
+                        System.out.println("Category: " + clue.getCategory().getTitle() + "\n"
+                                + "Question: " + clue.getQuestion() + "\n");
+                        System.out.println("Type your answer");
+                        String answer = scanner.nextLine();
+                        counter++;
 
-                    //Try/catch to check that string is not empty or white spaces also repeats the same question until a valid answer is entered
-                    try {
-                        if(answer.isEmpty() || answer.isBlank()){
-                            throw new RuntimeException();
+                        //Try/catch to check that string is not empty or white spaces also repeats the same question until a valid answer is entered
+                        try {
+                            if (answer.isEmpty() || answer.isBlank()) {
+                                throw new RuntimeException();
+                            }
+                        } catch (RuntimeException e) {
+                            counter--;
+                            randomId--;
+                            System.out.println("Please enter a valid answer!" + "\n");
                         }
-                    }catch (RuntimeException e){
-                        counter--;
-                        randomId--;
-                        System.out.println( "Please enter a valid answer!"+ "\n");
-                    }
 
-                   if (answer.equalsIgnoreCase(clue.getAnswer())) {
-                       System.out.println("Correct! You get a point!");
-                       points++;
-                       System.out.println("Points: " + points + "\n");
-                   } else if(!answer.equalsIgnoreCase(clue.getAnswer()) && !answer.isEmpty() && !answer.isBlank()){
-                        System.out.println("Wrong answer. The correct answer is: " + clue.getAnswer() + "\n");
-                        System.out.println("Points: " + points);
-                    }
-                    randomId++;
+                        if (answer.equalsIgnoreCase(clue.getAnswer())) {
+                            System.out.println("Correct! You get a point!");
+                            points++;
+                            System.out.println("Points: " + points + "\n");
+                        } else if (!answer.equalsIgnoreCase(clue.getAnswer()) && !answer.isEmpty() && !answer.isBlank()) {
+                            System.out.println("Wrong answer. The correct answer is: " + clue.getAnswer() + "\n");
+                            System.out.println("Points: " + points);
+                        }
+                        randomId++;
 
+                    }
+                    if (counter == 10) {
+                        break;
+                    }
                 }
-                if (counter == 10) {
+                //Shows total points and gives a message
+                if (points > 7) {
+                    System.out.println("You got a total of: " + points + " points");
+                    System.out.println("Good Job Einstein!");
+                } else {
+                    System.out.println("You got a total of: " + points + " points");
+                    System.out.println("Better luck next time :("+ "\n");
+                }
+                //Ask a user to try again and finish or repeats the program
+                System.out.println("""
+                        Do you wish to try again?
+                        Press Y to continue.
+                        Press Enter or N to end program.
+                        """);
+                eventLoopBreak = scanner.nextLine();
+
+                if(eventLoopBreak.equalsIgnoreCase("N") || eventLoopBreak.isBlank() || eventLoopBreak.isEmpty()){
                     break;
+                } else if (eventLoopBreak.equalsIgnoreCase("Y")) {
+                    counter = 0;
                 }
-            }
-            if (points > 7) {
-                System.out.println("You got a total of: " + points + " points");
-                System.out.println("Good Job Einstein!");
-            } else {
-                System.out.println("You got a total of: " + points + " points");
-                System.out.println("Better luck next time :(");
             }
         }catch (IOException e){
             e.printStackTrace();
         }
-
     }
 
         public static CluesDTO mapper(String URL) throws JsonProcessingException {
