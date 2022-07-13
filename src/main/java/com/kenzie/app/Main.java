@@ -4,7 +4,6 @@ package com.kenzie.app;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
@@ -44,12 +43,12 @@ public class Main {
 
                 //Pre game info explaining the game system
             System.out.println("""
-                    Hello! Welcome to the "Restless Neuron Game!
+                    Hello! Welcome to the "Restless Neuron Game
                     The game consists in answering as many questions correctly.
                     For every question that is correct you get a point, for a total of 10 questions.
                     Lets see what you got. Ready?
                     """);
-            System.out.println("Press anything to continue");
+            System.out.println("Press Any key to continue");
             scanner.nextLine();
             System.out.println("First Question:" + "\n");
 
@@ -100,11 +99,11 @@ public class Main {
                 System.out.println("""
                         Do you wish to try again?
                         Press Y to continue.
-                        Press Enter or N to end program.
+                        Press Any key to end program.
                         """);
                 eventLoopBreak = scanner.nextLine();
 
-                if(eventLoopBreak.equalsIgnoreCase("N") || eventLoopBreak.isBlank() || eventLoopBreak.isEmpty()){
+                if(!eventLoopBreak.equalsIgnoreCase("Y") || eventLoopBreak.isBlank()){
                     break;
                 } else if (eventLoopBreak.equalsIgnoreCase("Y")) {
                     counter = 0;
