@@ -28,14 +28,14 @@ public class Main {
     public static void main(String[] args) {
         //Write main execution code here
         Scanner menu = new Scanner(System.in);
-
-
+        System.out.println(getRandomNumber());
         System.out.println("Choose game mode"+ "\n"+
                 "Single player / Multiplayer");
         String menuText = menu.nextLine();
-        if(menuText.equalsIgnoreCase("single player")){
+
+        if(menuText.equalsIgnoreCase("single player")|| menuText.equalsIgnoreCase("single")){
             singlePlayer();
-        } else if (menuText.equalsIgnoreCase("multiplayer")) {
+        } else if (menuText.equalsIgnoreCase("multiplayer")|| menuText.equalsIgnoreCase("multi")) {
             System.out.println("Enter your name player 1");
             String playerOne = menu.nextLine();
             Player player1 = new Player(playerOne,0);
@@ -54,7 +54,6 @@ public class Main {
             }
         }
 
-
     }
 
     public static CluesDTO mapper(String URL) throws JsonProcessingException {
@@ -69,8 +68,6 @@ public class Main {
             int points = 0;
             int counter = 0;
             //Declaration of random and scanner
-            Random random = new Random();
-            int randomId = random.nextInt(99) + 1;
             Scanner scanner = new Scanner(System.in);
 
 
@@ -89,40 +86,40 @@ public class Main {
                 System.out.println("First Question:" + "\n");
 
                 //Main execution of program using loops and scanners
-                for (Clue clue : mapper(URL).getClues()) {
-                    while (clue.getId() == randomId) {
-                        System.out.println("Category: " + clue.getCategory().getTitle() + "\n"
-                                + "Question: " + clue.getQuestion() + "\n");
-                        System.out.println("Type your answer");
-                        String answer = scanner.nextLine();
-                        counter++;
-
-                        //Try/catch to check that string is not empty or white spaces also repeats the same question until a valid answer is entered
-                        try {
-                            if (answer.isEmpty() || answer.isBlank()) {
-                                throw new RuntimeException();
+                while (counter < 10) {
+                    int rand = getRandomNumber();
+                    for (Clue clue : mapper(URL).getClues()) {
+                        if (clue.getId() == rand) {
+                            System.out.println(rand);
+                            System.out.println(counter);
+                            System.out.println("Category: " + clue.getCategory().getTitle() + "\n"
+                                    + "Question: " + clue.getQuestion() + "\n");
+                            System.out.println("Type your answer");
+                            String answer = scanner.nextLine();
+                            counter++;
+                            //Try/catch to check that string is not empty or white spaces also repeats the same question until a valid answer is entered
+                            try {
+                                if (answer.isEmpty() || answer.isBlank()) {
+                                    throw new RuntimeException();
+                                }
+                            } catch (RuntimeException e) {
+                                counter--;
+                                System.out.println("Please enter a valid answer!" + "\n");
                             }
-                        } catch (RuntimeException e) {
-                            counter--;
-                            randomId--;
-                            System.out.println("Please enter a valid answer!" + "\n");
-                        }
 
-                        if (answer.equalsIgnoreCase(clue.getAnswer())) {
-                            System.out.println("Correct! You get a point!");
-                            points++;
-                            System.out.println("Points: " + points + "\n");
-                        } else if (!answer.equalsIgnoreCase(clue.getAnswer()) && !answer.isEmpty() && !answer.isBlank()) {
-                            System.out.println("Wrong answer. The correct answer is: " + clue.getAnswer() + "\n");
-                            System.out.println("Points: " + points);
+                            if (answer.equalsIgnoreCase(clue.getAnswer())) {
+                                System.out.println("Correct! You get a point!");
+                                points++;
+                                System.out.println("Points: " + points + "\n");
+                            } else if (!answer.equalsIgnoreCase(clue.getAnswer()) && !answer.isEmpty() && !answer.isBlank()) {
+                                System.out.println("Wrong answer. The correct answer is: " + clue.getAnswer() + "\n");
+                                System.out.println("Points: " + points);
+                            }
+
+                            if (counter == 10) {
+                                break;
+                            }
                         }
-                        randomId++;
-                        if (randomId == 100) {
-                            randomId = random.nextInt(50)+1;
-                        }
-                    }
-                    if (counter == 10) {
-                        break;
                     }
                 }
                 //Shows total points and gives a message
@@ -156,9 +153,7 @@ public class Main {
             //Declarations of variables to track points and counter for the for loop
             int points = 0;
             int counter = 0;
-            //Declaration of random and scanner
-            Random random = new Random();
-            int randomId = random.nextInt(99) + 1;
+            //Declaration of scanner
             Scanner scanner = new Scanner(System.in);
 
 
@@ -177,55 +172,74 @@ public class Main {
                 System.out.println("First Question:" + "\n");
 
                 //Main execution of program using loops and scanners
-                for (Clue clue : mapper(URL).getClues()) {
-                    while (clue.getId() == randomId) {
-                        System.out.println("Category: " + clue.getCategory().getTitle() + "\n"
-                                + "Question: " + clue.getQuestion() + "\n");
-                        System.out.println("Type your answer");
-                        String answer = scanner.nextLine();
-                        counter++;
+                while (counter < 10) {
+                    int rand = getRandomNumber();
+                    for (Clue clue : mapper(URL).getClues()) {
+                        if (clue.getId() == rand) {
+                            System.out.println(counter);
+                            System.out.println("Category: " + clue.getCategory().getTitle() + "\n"
+                                    + "Question: " + clue.getQuestion() + "\n");
+                            System.out.println("Type your answer");
+                            String answer = scanner.nextLine();
+                            counter++;
 
-                        //Try/catch to check that string is not empty or white spaces also repeats the same question until a valid answer is entered
-                        try {
-                            if (answer.isEmpty() || answer.isBlank()) {
-                                throw new RuntimeException();
+                            //Try/catch to check that string is not empty or white spaces also repeats the same question until a valid answer is entered
+                            try {
+                                if (answer.isEmpty() || answer.isBlank()) {
+                                    throw new RuntimeException();
+                                }
+                            } catch (RuntimeException e) {
+                                counter--;
+                                System.out.println("Please enter a valid answer!" + "\n");
                             }
-                        } catch (RuntimeException e) {
-                            counter--;
-                            randomId--;
-                            System.out.println("Please enter a valid answer!" + "\n");
-                        }
 
-                        if (answer.equalsIgnoreCase(clue.getAnswer())) {
-                            System.out.println("Correct! You get a point!");
-                            points++;
-                            System.out.println("Points: " + points + "\n");
-                        } else if (!answer.equalsIgnoreCase(clue.getAnswer()) && !answer.isEmpty() && !answer.isBlank()) {
-                            System.out.println("Wrong answer. The correct answer is: " + clue.getAnswer() + "\n");
-                            System.out.println("Points: " + points);
-                        }
-                        randomId++;
-                        if (randomId == 100) {
-                            randomId = random.nextInt(10)+1;
+                            if (answer.equalsIgnoreCase(clue.getAnswer())) {
+                                System.out.println("Correct! You get a point!");
+                                points++;
+                                System.out.println("Points: " + points + "\n");
+                            } else if (!answer.equalsIgnoreCase(clue.getAnswer()) && !answer.isEmpty() && !answer.isBlank()) {
+                                System.out.println("Wrong answer. The correct answer is: " + clue.getAnswer() + "\n");
+                                System.out.println("Points: " + points);
+                            }
+
+                            if (counter == 10) {
+                                break;
+                            }
                         }
                     }
-                    if (counter == 10) {
+                }
+                    player.setPoints(points);
+                    //Shows total points and gives a message
+                    System.out.println("You got a total of: " + player.getPoints());
+                    //Ask a user to try again and finish or repeats the program
+                    System.out.println("Press Any key to end program." + "\n");
+                    eventLoopBreak = scanner.nextLine();
+                    if (!eventLoopBreak.equalsIgnoreCase("y")) {
                         break;
                     }
                 }
-                player.setPoints(points);
-                //Shows total points and gives a message
-                System.out.println("You got a total of: " + player.getPoints());
-                //Ask a user to try again and finish or repeats the program
-                System.out.println("Press Any key to end program." + "\n");
-                eventLoopBreak = scanner.nextLine();
-                if (!eventLoopBreak.equalsIgnoreCase("y")) {
-                    break;
-                }
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static int getRandomNumber(){
+        ArrayList<Integer> list = new ArrayList<>();
+        int result = 0;
+        Random random = new Random();
+        int rand = random.nextInt(100);
+        for(int i = 1 ; i < 101; i++){
+            if(!list.contains(rand)){
+                list.add(i);
+                Collections.shuffle(list);
+            } else{
+                Collections.shuffle(list);
+            }
+            for(int j = 0; j<list.size(); j++){
+                Collections.shuffle(list);
+                result = list.get(j);
+           }
+        }
+        return result;
     }
 }
 
