@@ -31,7 +31,7 @@ public class Main {
 
 
         System.out.println("Choose game mode"+ "\n"+
-                "Single player/Multiplayer");
+                "Single player / Multiplayer");
         String menuText = menu.nextLine();
         if(menuText.equalsIgnoreCase("single player")){
             singlePlayer();
@@ -118,8 +118,7 @@ public class Main {
                         }
                         randomId++;
                         if (randomId == 100) {
-                            int shuffle = random.nextInt(50)+1;
-                            randomId = shuffle;
+                            randomId = random.nextInt(50)+1;
                         }
                     }
                     if (counter == 10) {
@@ -207,8 +206,7 @@ public class Main {
                         }
                         randomId++;
                         if (randomId == 100) {
-                            int shuffle = random.nextInt(50)+1;
-                            randomId = shuffle;
+                            randomId = random.nextInt(10)+1;
                         }
                     }
                     if (counter == 10) {
@@ -221,7 +219,7 @@ public class Main {
                 //Ask a user to try again and finish or repeats the program
                 System.out.println("Press Any key to end program." + "\n");
                 eventLoopBreak = scanner.nextLine();
-                if (eventLoopBreak.isBlank()) {
+                if (!eventLoopBreak.equalsIgnoreCase("y")) {
                     break;
                 }
             }
