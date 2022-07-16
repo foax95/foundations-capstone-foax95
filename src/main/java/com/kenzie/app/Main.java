@@ -164,7 +164,7 @@ public class Main {
 
                 //Pre game info explaining the game system
                 System.out.println(
-                        "Hello! " + player.getName() + " Welcome to the \"Restless Neuron Game\"" + "\n" +
+                        "Hello! " + player.getName() + "," + " Welcome to the \"Restless Neuron Game\"" + "\n" +
                                 "The game consists in answering as many questions correctly." + "\n" +
                                 "For every question that is correct you get a point, for a total of 10 questions." + "\n" +
                                 "Lets see what you got. Ready?" + "\n"
