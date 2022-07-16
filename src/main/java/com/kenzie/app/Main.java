@@ -38,9 +38,15 @@ public class Main {
             System.out.println("Enter your name player 1");
             String playerOne = menu.nextLine();
             Player player1 = new Player(playerOne,0);
+            if(playerOne.isBlank() || playerOne.isEmpty()){
+                player1.setName("player 1");
+            }
             System.out.println("Enter your name player 2");
             String playerTwo = menu.nextLine();
             Player player2 = new Player(playerTwo,0);
+            if(playerOne.isBlank() || playerOne.isEmpty()){
+                player2.setName("player 2");
+            }
 
             multiPlayer(player1);
             multiPlayer(player2);
