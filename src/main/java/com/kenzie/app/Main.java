@@ -105,6 +105,7 @@ public class Main {
                                 }
                             } catch (RuntimeException e) {
                                 counter--;
+                                index--;
                                 System.out.println("Please enter a valid answer!" + "\n");
                             }
 
@@ -193,6 +194,7 @@ public class Main {
                                 }
                             } catch (RuntimeException e) {
                                 counter--;
+                                index--;
                                 System.out.println("Please enter a valid answer!" + "\n");
                             }
 
@@ -225,8 +227,6 @@ public class Main {
     }
     public static ArrayList<Integer> getRandomNumber(){
         ArrayList<Integer> list = new ArrayList<>();
-        Random random = new Random();
-        int rand = random.nextInt(100);
         for(int i = 1 ; i < 101; i++){
                 list.add(i);
                 Collections.shuffle(list);
