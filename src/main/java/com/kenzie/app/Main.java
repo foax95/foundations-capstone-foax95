@@ -74,7 +74,7 @@ public class Main {
             int counter = 0;
             //Declaration of random and scanner
             Scanner scanner = new Scanner(System.in);
-            ArrayList<Integer> list = getRandomNumber();
+            ArrayList<Integer> list = generateRandomNumberThatDoesNotRepeat();
             int index= 0;
 
 
@@ -161,7 +161,7 @@ public class Main {
             int counter = 0;
             //Declaration of scanner
             Scanner scanner = new Scanner(System.in);
-            ArrayList<Integer> list = getRandomNumber();
+            ArrayList<Integer> list = generateRandomNumberThatDoesNotRepeat();
             int index =0;
 
 
@@ -231,12 +231,14 @@ public class Main {
             e.printStackTrace();
         }
     }
-    public static ArrayList<Integer> getRandomNumber(){
+    public static ArrayList<Integer> generateRandomNumberThatDoesNotRepeat() {
         ArrayList<Integer> list = new ArrayList<>();
-        for(int i = 1 ; i < 101; i++){
-                list.add(i);
-                Collections.shuffle(list);
+        for (int i = 0; i < 10; i++) {
+            int rand = (int) (Math.random() * 100);
+            if (!list.contains(rand)) {
+                list.add(rand);
             }
+        }
         return list;
     }
 }
