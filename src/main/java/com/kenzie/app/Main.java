@@ -233,10 +233,11 @@ public class Main {
     }
     public static ArrayList<Integer> generateRandomNumberThatDoesNotRepeat() {
         ArrayList<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10;) {
             int rand = (int) (Math.random() * 100);
             if (!list.contains(rand)) {
                 list.add(rand);
+                i++;
             }
         }
         return list;
